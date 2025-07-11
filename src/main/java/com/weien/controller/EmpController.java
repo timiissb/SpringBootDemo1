@@ -18,6 +18,11 @@ public class EmpController {
     @Autowired
     private EmpService empService;
 
+    /**
+     * 分页查询
+     * @param empPageDTO
+     * @return
+     */
     @GetMapping("/page")
     public Result<PageData<EmpPageVo>> findPage(EmpPageDTO empPageDTO){
         IPage<EmpPageVo> page = empService.findByPage(empPageDTO);
@@ -27,9 +32,26 @@ public class EmpController {
         return Result.success(pageData);
     }
 
+    /**
+     * 添加员工
+     * @param empAddDTO
+     * @return
+     */
     @PostMapping("/add")
     public Result<String> addEmp(@RequestBody EmpAddDTO empAddDTO){
         empService.addEmp(empAddDTO);
         return Result.success();
     }
+
+    /**
+     * 删除员工
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/{id}")
+    public Result<String> deleteEmp(@PathVariable Long id){
+        empService.deleteEmp(id);
+        return Result.success();
+    }
+
 }

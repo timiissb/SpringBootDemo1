@@ -50,10 +50,19 @@ public class EmpServiceImpl implements EmpService {
         empMapper.insert(empl);
     }
 
+    /**
+     * 删除员工
+     * @param empId
+     */
+    @Override
+    public void deleteEmp(Long empId) {
+        empMapper.deleteById(empId);
+    }
+
 
     private EmpPageVo toVo(Empl empl) {
         EmpPageVo vo = new EmpPageVo();
-        BeanUtils.copyProperties(empl, vo); // 来自 Spring 的 org.springframework.beans.BeanUtils
+        BeanUtils.copyProperties(empl, vo);
         return vo;
     }
 }
