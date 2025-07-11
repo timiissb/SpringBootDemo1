@@ -3,13 +3,12 @@ package com.weien.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.pojo.PageData;
 import com.pojo.Result;
+import com.pojo.dto.EmpAddDTO;
 import com.pojo.dto.EmpPageDTO;
 import com.pojo.vo.EmpPageVo;
 import com.weien.service.EmpService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +25,11 @@ public class EmpController {
         long total = page.getTotal();
         PageData<EmpPageVo> pageData = new PageData<>(list, total);
         return Result.success(pageData);
+    }
+
+    @PostMapping("/add")
+    public Result<String> addEmp(@RequestBody EmpAddDTO empAddDTO){
+        empService.addEmp(empAddDTO);
+        return Result.success();
     }
 }

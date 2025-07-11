@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pojo.PageData;
+import com.pojo.dto.EmpAddDTO;
 import com.pojo.dto.EmpPageDTO;
 import com.pojo.entity.Empl;
 import com.pojo.vo.EmpPageVo;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,6 +39,15 @@ public class EmpServiceImpl implements EmpService {
         voPage.setRecords(list);
 
        return voPage;
+    }
+
+    @Override
+    public void addEmp(EmpAddDTO empAddDTO) {
+        Empl empl = new Empl();
+        BeanUtils.copyProperties(empAddDTO,empl);
+        empl.setCreateTime(LocalDateTime.now());
+        empl.setUpdateTime(LocalDateTime.now());
+        empMapper.insert(empl);
     }
 
 
